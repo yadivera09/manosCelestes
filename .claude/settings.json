@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//c/Users/dayan/Downloads/**)",
+      "Bash(npx create-next-app@14 mcw-temp --typescript --tailwind --eslint --app --src-dir=false --import-alias=\"@/*\" --no-git)",
+      "Bash(npm install *)",
+      "Bash(npx tsc *)"
+    ]
+  }
+}
