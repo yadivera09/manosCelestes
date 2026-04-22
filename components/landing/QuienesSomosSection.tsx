@@ -13,14 +13,16 @@ const slides = [
   { src: "/mock/activity-6.jpg", alt: "Manos Celestes — actividad 6" },
 ];
 
-const messages = [
-  "Somos un grupo de jóvenes comprometidos con la defensa de la vida y la familia.",
-  "Nacimos como una iniciativa para apoyar, acompañar y brindar esperanza a quienes más lo necesitan.",
-  "Creemos firmemente que la vida debe ser protegida desde el primer instante.",
-];
-
-export default function QuienesSomosSection() {
+export default function QuienesSomosSection({ settings }: { settings?: any }) {
   const [active, setActive] = useState(0);
+
+  const title = settings?.title || "Conócenos";
+  const subtitle = settings?.subtitle || "Sumérgete en nuestra historia";
+  const description = settings?.description || "Somos un grupo de jóvenes comprometidos con la defensa de la vida y la familia. Nacimos como una iniciativa para apoyar, acompañar y brindar esperanza a quienes más lo necesitan.";
+
+  // Dividir la descripción en frases para el carrusel si es necesario, 
+  // o simplemente usar la descripción completa como mensaje principal.
+  const displayMessages = [description];
 
   const next = useCallback(() => {
     setActive((prev) => (prev + 1) % slides.length);
@@ -56,10 +58,10 @@ export default function QuienesSomosSection() {
           Quiénes Somos
         </p>
         <h2 className="display-title text-5xl md:text-6xl lg:text-7xl mb-4">
-          Conócenos
+          {title}
         </h2>
         <p className="text-lg md:text-xl text-[#143B4F]/70 font-light tracking-wide">
-          Sumérgete en nuestra historia
+          {subtitle}
         </p>
       </div>
 
@@ -93,7 +95,7 @@ export default function QuienesSomosSection() {
                     className="text-white text-sm md:text-base leading-snug font-medium"
                     style={{ animation: "fade-up 0.5s ease both" }}
                   >
-                    {messages[active % messages.length]}
+                    {displayMessages[active % displayMessages.length]}
                   </p>
                 </div>
               </div>

@@ -25,32 +25,31 @@ function AnimatedCounter({ value }: { value: number }) {
   return <motion.span>{rounded}</motion.span>;
 }
 
-// ─── Data ───────────────────────────────────────────────────────────────────
-const IMPACT_STATS = [
-  {
-    number: 500,
-    label: "niños en total",
-  },
-  {
-    number: 50,
-    label: "ancianos ayudados",
-  },
-  {
-    number: 50,
-    label: "mujeres embarazadas apoyadas",
-  },
-];
-
-export default function ImpactSection() {
+export default function ImpactSection({ stats }: { stats: any[] }) {
   const [currentIndex, setCurrentIndex] = useState(0);
 
+  // Filtrar solo las activas y formatear asegurando que el conteo sea un número
+  const activeStats = stats.filter(s => s.is_active).map(s => ({
+    number: Number(s.value) || 0,
+    label: s.label
+  }));
+
+  // Fallback si no hay estadísticas cargadas aún
+  const displayStats = activeStats.length > 0 ? activeStats : [
+    { number: 500, label: "niños en total" },
+    { number: 50, label: "ancianos ayudados" },
+    { number: 50, label: "mujeres embarazadas apoyadas" },
+  ];
+
   useEffect(() => {
+    if (displayStats.length <= 1) return;
+    
     const timer = setInterval(() => {
-      setCurrentIndex((prev) => (prev + 1) % IMPACT_STATS.length);
-    }, 4500); // Rotates every 4.5 seconds
+      setCurrentIndex((prev) => (prev + 1) % displayStats.length);
+    }, 4500); 
     
     return () => clearInterval(timer);
-  }, []);
+  }, [displayStats.length]);
 
   return (
     <section id="impacto" className="relative w-full bg-white pt-24 pb-48 overflow-hidden z-10">
@@ -89,13 +88,13 @@ export default function ImpactSection() {
               >
                 {/* Big Number */}
                 <div className="text-[7rem] md:text-[9rem] font-black text-[#4FB3DC] leading-none mb-4 display-title tracking-tighter drop-shadow-sm">
-                  <AnimatedCounter value={IMPACT_STATS[currentIndex].number} />
+                  <AnimatedCounter value={displayStats[currentIndex].number} />
                   <span className="text-4xl md:text-6xl align-top text-[#2E8EBA] ml-1">+</span>
                 </div>
                 
                 {/* Subtitle */}
                 <div className="text-2xl md:text-3xl font-bold text-[#143B4F]/80 capitalize">
-                  {IMPACT_STATS[currentIndex].label}
+                  {displayStats[currentIndex].label}
                 </div>
               </motion.div>
             </AnimatePresence>

@@ -3,14 +3,27 @@
 import Image from "next/image";
 import { motion } from "framer-motion";
 
-const members = [
-  { name: "Carlos Mendoza", role: "Voluntario", src: "/mock/activity-1.jpg" },
-  { name: "Lucía Fernández", role: "Voluntario", src: "/mock/activity-2.jpg" },
-  { name: "Martín Rivas",    role: "Voluntario", src: "/mock/activity-3.jpg" },
-  { name: "Sofía Torres",    role: "Voluntario", src: "/mock/activity-4.jpg" },
-];
-
-export default function TeamSection() {
+export default function TeamSection({ team }: { team: any[] }) {
+  // Filtrar activos y ordenar
+  const activeTeam = team.filter(m => m.is_active).sort((a, b) => a.display_order - b.display_order);
+  
+  // Separar líder y miembros
+  const leader = activeTeam.find(m => m.is_leader) || {
+    name: "Daniela Vera",
+    role: "Líder del grupo",
+    photo_url: "/mock/about.jpeg",
+    bio: "Con una vocación inquebrantable de servicio, coordina cada una de nuestras actividades asegurando que la ayuda llegue siempre a buenas manos y los corazones se llenen de esperanza."
+  };
+  
+  const members = activeTeam.filter(m => !m.is_leader);
+  
+  // Miembros por defecto si la lista está vacía
+  const displayMembers = members.length > 0 ? members : [
+    { name: "Carlos Mendoza", role: "Voluntario", photo_url: "/mock/activity-1.jpg" },
+    { name: "Lucía Fernández", role: "Voluntario", photo_url: "/mock/activity-2.jpg" },
+    { name: "Martín Rivas",    role: "Voluntario", photo_url: "/mock/activity-3.jpg" },
+    { name: "Sofía Torres",    role: "Voluntario", photo_url: "/mock/activity-4.jpg" },
+  ];
   return (
     <section
       id="team"
@@ -51,8 +64,8 @@ export default function TeamSection() {
           {/* Image side */}
           <div className="relative w-full md:w-[42%] min-h-[300px] md:min-h-[380px] flex-shrink-0">
             <Image
-              src="/mock/about.jpeg"
-              alt="Daniela Vera — Líder del grupo"
+              src={leader.photo_url}
+              alt={`${leader.name} — ${leader.role}`}
               fill
               className="object-cover"
               priority
@@ -62,22 +75,20 @@ export default function TeamSection() {
           {/* Info side */}
           <div className="flex flex-col justify-center p-8 md:p-12">
             <span className="text-xs tracking-[0.22em] font-bold text-[#4FB3DC] uppercase mb-3">
-              Líder del grupo
+              {leader.role}
             </span>
             <h3 className="text-3xl md:text-4xl font-extrabold text-[#0A2A3A] mb-4">
-              Daniela Vera
+              {leader.name}
             </h3>
             <p className="text-[#143B4F]/70 text-base md:text-lg leading-relaxed">
-              Con una vocación inquebrantable de servicio, coordina cada una de nuestras
-              actividades asegurando que la ayuda llegue siempre a buenas manos y los
-              corazones se llenen de esperanza.
+              {leader.bio || "Comprometida con la defensa de la vida y la familia."}
             </p>
           </div>
         </motion.div>
 
         {/* Members grid */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          {members.map((m, i) => (
+          {displayMembers.map((m, i) => (
             <motion.div
               key={m.name}
               initial={{ opacity: 0, y: 20 }}
@@ -88,7 +99,7 @@ export default function TeamSection() {
               style={{ aspectRatio: "3/4" }}
             >
               <Image
-                src={m.src}
+                src={m.photo_url}
                 alt={m.name}
                 fill
                 className="object-cover transition-transform duration-500 group-hover:scale-105"

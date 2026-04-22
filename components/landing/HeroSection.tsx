@@ -5,8 +5,19 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 
-export default function Hero() {
+export default function Hero({ settings }: { settings?: any }) {
   const [isOpen, setIsOpen] = useState(false);
+
+  // Valores dinámicos con fallbacks
+  const title = settings?.title || "Manos Celestes";
+  const subtitle = settings?.subtitle || "Somos la mano que se extiende cuando nadie mira.";
+  const description = settings?.description || "Transformamos gestos pequeños en sonrisas enormes.";
+  const imageUrl = settings?.image_url || "/mock/hero.jpeg";
+
+  // Dividir el título para el diseño especial (ej: "Manos Celestes" -> ["Manos", "Celestes"])
+  const titleParts = title.split(" ");
+  const firstPart = titleParts[0] || "Manos";
+  const secondPart = titleParts.slice(1).join(" ") || "Celestes";
 
   // Bloquear scroll cuando el menú está abierto
   useEffect(() => {
@@ -67,7 +78,7 @@ export default function Hero() {
     <section className="relative w-full min-h-screen flex items-center justify-center overflow-hidden">
       {/* Imagen de fondo ocupando toda la pantalla */}
       <Image
-        src="/mock/hero.jpeg"
+        src={imageUrl}
         alt="Fondo Manos Celestes"
         fill
         priority
@@ -239,15 +250,15 @@ export default function Hero() {
         {/* Título principal */}
         <div className="flex-1 flex flex-col items-center justify-center pt-8 md:pt-12 pb-10 text-center">
           <h1 className="display-title text-[18vw] md:text-[14vw] lg:text-[11rem] xl:text-[13rem] leading-[0.88] fade-up fade-up-3">
-            <span className="block">Manos</span>
-            <span className="block mt-2 fade-up fade-up-4">Celestes</span>
+            <span className="block">{firstPart}</span>
+            <span className="block mt-2 fade-up fade-up-4">{secondPart}</span>
           </h1>
 
           {/* Frase de apoyo */}
           <p className="mt-10 md:mt-12 max-w-2xl mx-auto text-base md:text-lg text-[#143B4F]/80 leading-relaxed fade-up fade-up-4 px-4">
-            Somos la mano que se extiende cuando nadie mira.
+            {subtitle}
             <br className="hidden md:block" />
-            Transformamos gestos pequeños en sonrisas enormes.
+            {description}
           </p>
 
           {/* Botones */}

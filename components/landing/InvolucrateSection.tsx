@@ -16,9 +16,13 @@ const rightCircles = [
   { src: "/mock/activity-6.jpg", size:  80, delay: 0.30 },
 ];
 
-export default function InvolucrateSection() {
+export default function InvolucrateSection({ settings }: { settings?: any }) {
   const [form, setForm] = useState({ name: "", email: "", subject: "", message: "" });
   const [sent, setSent] = useState(false);
+
+  const title = settings?.title || "Únete para hacer la diferencia";
+  const subtitle = settings?.subtitle || "¿Listo para dar una Mano Celeste?";
+  const description = settings?.description || "Estamos aquí para responder tus inquietudes, escuchar tus propuestas y compartir nuestra visión. Tú también puedes ser parte del cambio.";
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -68,7 +72,7 @@ export default function InvolucrateSection() {
               Toma Acción
             </span>
             <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-[#0A2A3A] leading-tight mb-8">
-              Únete para hacer<br />la diferencia
+              {title}
             </h2>
             <div className="flex flex-wrap items-center justify-center gap-4">
               <a href="#contacto" className="btn-primary">Voluntario Ahora</a>
@@ -119,11 +123,10 @@ export default function InvolucrateSection() {
               Conecta con nosotros
             </span>
             <h3 className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-[#0A2A3A] mb-5">
-              ¿Listo para dar una<br className="hidden md:block" /> Mano Celeste?
+              {subtitle}
             </h3>
             <p className="text-base md:text-lg text-[#143B4F]/65 max-w-2xl mx-auto leading-relaxed">
-              Estamos aquí para responder tus inquietudes, escuchar tus propuestas y compartir
-              nuestra visión. Tú también puedes ser parte del cambio.
+              {description}
             </p>
           </motion.div>
 
