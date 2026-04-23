@@ -16,7 +16,7 @@ export default async function ActivityYearGalleryPage({
   const supabase = createClient()
   const { data: yearData } = await supabase
     .from('activity_years')
-    .select('year, description')
+    .select('year, summary, description')
     .eq('id', params.year_id)
     .single()
 
