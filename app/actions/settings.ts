@@ -26,11 +26,29 @@ export async function getSettings() {
     updated_at: string
   }
 
+  type MappedSetting = {
+    id: string
+    section_key: string
+    title?: string
+    subtitle?: string
+    description?: string
+    image_url?: string
+    updated_at: string
+  }
+
   // Convertir a un objeto clave-valor para fácil acceso
   const settingsMap = (data as Setting[]).reduce((acc, curr) => {
-    acc[curr.section_key] = curr
+    acc[curr.section_key] = {
+      id: curr.id,
+      section_key: curr.section_key,
+      title: curr.title ?? undefined,
+      subtitle: curr.subtitle ?? undefined,
+      description: curr.description ?? undefined,
+      image_url: curr.image_url ?? undefined,
+      updated_at: curr.updated_at,
+    }
     return acc
-  }, {} as Record<string, Setting>)
+  }, {} as Record<string, MappedSetting>)
 
   return { data: settingsMap }
 }
