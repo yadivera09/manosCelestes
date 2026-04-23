@@ -9,11 +9,11 @@ type SettingsFormProps = {
   sectionKey: string
   sectionName: string
   initialData?: {
-    title?: string
-    subtitle?: string
-    description?: string
-    image_url?: string
-  }
+    title?: string | null
+    subtitle?: string | null
+    description?: string | null
+    image_url?: string | null
+  } | null
 }
 
 export function SettingsForm({ sectionKey, sectionName, initialData }: SettingsFormProps) {
@@ -52,7 +52,7 @@ export function SettingsForm({ sectionKey, sectionName, initialData }: SettingsF
             <input
               type="text"
               name="title"
-              defaultValue={initialData?.title}
+              defaultValue={initialData?.title || ''}
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
               placeholder="Ej: Manos Celestes"
             />
@@ -64,7 +64,7 @@ export function SettingsForm({ sectionKey, sectionName, initialData }: SettingsF
             <input
               type="text"
               name="subtitle"
-              defaultValue={initialData?.subtitle}
+              defaultValue={initialData?.subtitle || ''}
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
               placeholder="Ej: Ayudando a los más necesitados"
             />
@@ -76,7 +76,7 @@ export function SettingsForm({ sectionKey, sectionName, initialData }: SettingsF
             <textarea
               name="description"
               rows={4}
-              defaultValue={initialData?.description}
+              defaultValue={initialData?.description || ''}
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all resize-y"
               placeholder="Escribe el texto descriptivo de la sección..."
             />
@@ -107,7 +107,7 @@ export function SettingsForm({ sectionKey, sectionName, initialData }: SettingsF
                   accept="image/*"
                   className="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 cursor-pointer"
                 />
-                <input type="hidden" name="image_url" defaultValue={initialData?.image_url} />
+                <input type="hidden" name="image_url" defaultValue={initialData?.image_url || ''} />
                 <p className="mt-1 text-xs text-gray-500">
                   Formatos aceptados: JPG, PNG, WEBP. Máximo 5MB.
                 </p>
