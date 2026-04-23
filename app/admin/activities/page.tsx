@@ -13,7 +13,7 @@ export default async function ActivitiesPage() {
       <div className="mb-8">
         <h1 className="text-3xl font-bold text-gray-900 tracking-tight">Actividades</h1>
         <p className="mt-2 text-gray-600">
-          Crea las carpetas principales de actividades (ej: "Navidad en Calles"). 
+          Crea las carpetas principales de actividades (ej: &quot;Navidad en Calles&quot;). 
           Luego, dentro de cada actividad podrás crear carpetas por Años para subir las fotos de la galería.
         </p>
       </div>

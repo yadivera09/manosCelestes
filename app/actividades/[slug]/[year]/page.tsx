@@ -2,8 +2,16 @@
 import { notFound } from "next/navigation"
 import Link from "next/link"
 import { createClient } from "@/lib/supabase/server"
-import { ArrowLeft, ImageIcon, Calendar } from "lucide-react"
+import { ImageIcon } from "lucide-react"
 import { GalleryGrid } from "./GalleryGrid"
+
+interface ActivityResponse {
+  id: string;
+  title: string;
+  slug: string;
+  category_id: string;
+  categories: { name: string } | null;
+}
 
 export default async function ActivityYearGalleryPage({ 
   params 
@@ -14,11 +22,13 @@ export default async function ActivityYearGalleryPage({
   const yearInt = parseInt(params.year)
 
   // 1. Obtener la actividad y su categoría
-  const { data: activity } = await supabase
+  const { data: activityData } = await supabase
     .from('activities')
     .select('id, title, slug, category_id, categories(name)')
     .eq('slug', params.slug)
     .single()
+
+  const activity = activityData as unknown as ActivityResponse
 
   if (!activity) return notFound()
 
@@ -48,7 +58,7 @@ export default async function ActivityYearGalleryPage({
     .eq('is_active', true)
     .order('display_order', { ascending: true })
 
-  const categoryName = (activity as any).categories?.name || 'Actividad'
+  const categoryName = activity.categories?.name || 'Actividad'
 
   return (
     <div className="min-h-screen bg-[#FDFBF5] pb-24">

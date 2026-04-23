@@ -6,8 +6,23 @@ import { Container, SectionWrapper } from "@/components/shared/index";
 import Link from "next/link";
 import { ChevronRight, Heart, Book, PartyPopper } from "lucide-react";
 
+interface CategoryMeta {
+  slug: string;
+  description: string;
+  icon: React.ReactNode;
+  color: string;
+}
+
+interface Activity {
+  id: string;
+  title: string;
+  slug: string;
+  category: string;
+  is_active: boolean;
+}
+
 // Mapeo de metadata para las categorías fijas
-const CATEGORY_METADATA: Record<string, any> = {
+const CATEGORY_METADATA: Record<string, CategoryMeta> = {
   'Celebraciones': {
     slug: 'celebraciones',
     description: "Día del Niño, Día de la Madre y Día del Padre. Honramos a las familias con eventos llenos de alegría.",
@@ -28,7 +43,7 @@ const CATEGORY_METADATA: Record<string, any> = {
   }
 };
 
-export default function ActivitiesSection({ activities }: { activities: any[] }) {
+export default function ActivitiesSection({ activities }: { activities: Activity[] }) {
   // 1. Filtrar solo actividades activas
   const activeActivities = activities.filter(a => a.is_active);
 

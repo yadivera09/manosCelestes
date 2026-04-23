@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { addGalleryImage, deleteGalleryImage } from '@/app/actions/activities'
 import { Loader2, Plus, Trash2, Image as ImageIcon } from 'lucide-react'
+import Image from 'next/image'
 
 type GalleryImage = {
   id: string
@@ -19,7 +20,7 @@ export function GalleryClient({
   activityYearId: string, 
   initialImages: GalleryImage[] 
 }) {
-  const [images, setImages] = useState<GalleryImage[]>(initialImages)
+  const [images] = useState<GalleryImage[]>(initialImages)
   const [isLoading, setIsLoading] = useState(false)
   const [formData, setFormData] = useState({ image_url: '', alt_text: '', display_order: 0 })
 
@@ -94,10 +95,11 @@ export function GalleryClient({
         ) : (
           images.map((img) => (
             <div key={img.id} className="group relative bg-gray-100 rounded-xl overflow-hidden aspect-square border border-gray-200 shadow-sm">
-              <img 
-                src={img.image_url} 
+              <Image 
+                src={img.image_url || '/mock/activity-1.jpg'} 
                 alt={img.alt_text || 'Galería'} 
-                className="w-full h-full object-cover"
+                fill
+                className="object-cover"
               />
               <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-between p-3">
                 <div className="text-white text-xs font-medium">Orden: {img.display_order}</div>

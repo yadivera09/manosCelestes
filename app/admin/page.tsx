@@ -1,7 +1,4 @@
-import { createClient } from '@/lib/supabase/server'
-
 export default async function AdminDashboard() {
-  const supabase = createClient()
   
   // Aquí podríamos obtener un resumen de datos
   // const { count: totalActivities } = await supabase.from('activities').select('*', { count: 'exact', head: true })

@@ -3,7 +3,7 @@
 
 import { useState } from 'react'
 import { createCategory, updateCategory, toggleCategoryActive } from '@/app/actions/categories'
-import { Loader2, Plus, Edit2, Trash2, CheckCircle2, Tag, ChevronRight } from 'lucide-react'
+import { Loader2, Plus, Edit2, Trash2, CheckCircle2, Tag } from 'lucide-react'
 
 type Category = {
   id: string
@@ -14,7 +14,7 @@ type Category = {
 }
 
 export default function CategoriesClient({ initialCategories }: { initialCategories: Category[] }) {
-  const [categories, setCategories] = useState<Category[]>(initialCategories)
+  const [categories] = useState<Category[]>(initialCategories)
   const [isEditing, setIsEditing] = useState<string | null>(null)
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)

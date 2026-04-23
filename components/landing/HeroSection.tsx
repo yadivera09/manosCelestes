@@ -5,7 +5,16 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 
-export default function Hero({ settings }: { settings?: any }) {
+interface HeroProps {
+  settings?: {
+    title?: string
+    subtitle?: string
+    description?: string
+    image_url?: string
+  }
+}
+
+export default function Hero({ settings }: HeroProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   // Valores dinámicos con fallbacks

@@ -21,7 +21,7 @@ export default async function ActivityDetailPage({ params }: { params: { slug: s
   }
 
   // 2. Obtener los años registrados para esta actividad
-  const { data: years, error: yearsError } = await supabase
+  const { data: years } = await supabase
     .from('activity_years')
     .select('*')
     .eq('activity_id', activity.id)
@@ -70,7 +70,7 @@ export default async function ActivityDetailPage({ params }: { params: { slug: s
               </div>
               <h3 className="text-xl font-bold text-[#0A2A3A] mb-4">Sobre esta actividad</h3>
               <p className="text-[#143B4F]/70 leading-relaxed italic">
-                "{activity.description || 'Sin descripción disponible.'}"
+                &quot;{activity.description || 'Sin descripción disponible.'}&quot;
               </p>
             </div>
           </div>

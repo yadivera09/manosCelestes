@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { updateSetting } from '@/app/actions/settings'
 import { Loader2, Save } from 'lucide-react'
+import Image from 'next/image'
 
 type SettingsFormProps = {
   sectionKey: string
@@ -90,10 +91,11 @@ export function SettingsForm({ sectionKey, sectionName, initialData }: SettingsF
             <div className="flex items-center gap-6">
               {initialData?.image_url && (
                 <div className="relative w-32 h-20 rounded-lg overflow-hidden border border-gray-200">
-                  <img 
-                    src={initialData.image_url} 
+                  <Image 
+                    src={initialData.image_url || '/mock/about.jpeg'} 
                     alt="Vista previa" 
-                    className="w-full h-full object-cover"
+                    fill
+                    className="object-cover"
                   />
                 </div>
               )}

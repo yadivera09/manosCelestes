@@ -53,7 +53,6 @@ export default async function CategoryPage({ params }: { params: { slug: string 
       {/* Listado con Filtros (Client Component) */}
       <CategoryActivitiesClient 
         initialActivities={activities || []} 
-        categoryName={category.name} 
       />
 
       {/* Botón Volver Inferior */}

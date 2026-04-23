@@ -16,11 +16,21 @@ export async function getSettings() {
     return { error: error.message }
   }
 
+  interface Setting {
+    id: string
+    section_key: string
+    title: string | null
+    subtitle: string | null
+    description: string | null
+    image_url: string | null
+    updated_at: string
+  }
+
   // Convertir a un objeto clave-valor para fácil acceso
-  const settingsMap = data.reduce((acc, curr) => {
+  const settingsMap = (data as Setting[]).reduce((acc, curr) => {
     acc[curr.section_key] = curr
     return acc
-  }, {} as Record<string, any>)
+  }, {} as Record<string, Setting>)
 
   return { data: settingsMap }
 }

@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { createTeamMember, updateTeamMember, toggleTeamMemberActive } from '@/app/actions/team'
 import { Loader2, Plus, Edit2, Trash2, CheckCircle2, UserCircle } from 'lucide-react'
+import Image from 'next/image'
 
 type TeamMember = {
   id: string
@@ -15,7 +16,7 @@ type TeamMember = {
 }
 
 export function TeamClient({ initialTeam }: { initialTeam: TeamMember[] }) {
-  const [team, setTeam] = useState<TeamMember[]>(initialTeam)
+  const [team] = useState<TeamMember[]>(initialTeam)
   const [isEditing, setIsEditing] = useState<string | null>(null)
   const [isLoading, setIsLoading] = useState(false)
 
@@ -122,16 +123,20 @@ export function TeamClient({ initialTeam }: { initialTeam: TeamMember[] }) {
               <label className="block text-sm font-medium text-gray-700 mb-1">Foto del Miembro</label>
               <div className="flex items-center gap-4">
                 {formData.photo_url && (
-                  <img src={formData.photo_url} alt="Previa" className="w-12 h-12 rounded-full object-cover border border-gray-200" />
+                  <div className="relative w-12 h-12">
+                    <Image 
+                      src={formData.photo_url || '/mock/about.jpeg'} 
+                      alt="Previa" 
+                      fill
+                      className="rounded-full object-cover border border-gray-200" 
+                    />
+                  </div>
                 )}
                 <div className="flex-1">
                   <input
                     type="file"
                     name="image"
                     accept="image/*"
-                    onChange={(e) => {
-                      // No actualizamos el estado formData con el archivo aquí, el form lo enviará vía FormData
-                    }}
                     className="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 cursor-pointer"
                   />
                   <input type="hidden" name="photo_url" value={formData.photo_url} />
@@ -196,7 +201,14 @@ export function TeamClient({ initialTeam }: { initialTeam: TeamMember[] }) {
                   <tr key={member.id} className={!member.is_active ? 'bg-gray-50 opacity-60' : ''}>
                     <td className="px-6 py-4 whitespace-nowrap">
                       {member.photo_url ? (
-                        <img src={member.photo_url} alt={member.name} className="w-10 h-10 rounded-full object-cover" />
+                        <div className="relative w-10 h-10">
+                          <Image 
+                            src={member.photo_url || '/mock/about.jpeg'} 
+                            alt={member.name} 
+                            fill
+                            className="rounded-full object-cover" 
+                          />
+                        </div>
                       ) : (
                         <div className="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center text-gray-500">
                           <UserCircle className="w-6 h-6" />

@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { createActivity, updateActivity, toggleActivityActive } from '@/app/actions/activities'
 import { Loader2, Plus, Edit2, Trash2, CheckCircle2, Folder, ChevronRight } from 'lucide-react'
 import Link from 'next/link'
+import Image from 'next/image'
 
 type Activity = {
   id: string
@@ -149,7 +150,14 @@ export function ActivitiesClient({
               <label className="block text-sm font-medium text-gray-700 mb-1">Foto de Portada</label>
               <div className="flex items-center gap-4">
                 {formData.cover_url && (
-                  <img src={formData.cover_url} alt="Previa" className="w-12 h-12 rounded-lg object-cover border border-gray-200" />
+                  <div className="relative w-12 h-12">
+                    <Image 
+                      src={formData.cover_url || '/mock/activity-1.jpg'} 
+                      alt="Previa" 
+                      fill
+                      className="rounded-lg object-cover border border-gray-200" 
+                    />
+                  </div>
                 )}
                 <div className="flex-1">
                   <input

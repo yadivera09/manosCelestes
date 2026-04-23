@@ -13,7 +13,15 @@ const slides = [
   { src: "/mock/activity-6.jpg", alt: "Manos Celestes — actividad 6" },
 ];
 
-export default function QuienesSomosSection({ settings }: { settings?: any }) {
+interface QuienesSomosProps {
+  settings?: {
+    title?: string
+    subtitle?: string
+    description?: string
+  }
+}
+
+export default function QuienesSomosSection({ settings }: QuienesSomosProps) {
   const [active, setActive] = useState(0);
 
   const title = settings?.title || "Conócenos";

@@ -16,7 +16,15 @@ const rightCircles = [
   { src: "/mock/activity-6.jpg", size:  80, delay: 0.30 },
 ];
 
-export default function InvolucrateSection({ settings }: { settings?: any }) {
+interface InvolucrateProps {
+  settings?: {
+    title?: string
+    subtitle?: string
+    description?: string
+  }
+}
+
+export default function InvolucrateSection({ settings }: InvolucrateProps) {
   const [form, setForm] = useState({ name: "", email: "", subject: "", message: "" });
   const [sent, setSent] = useState(false);
 

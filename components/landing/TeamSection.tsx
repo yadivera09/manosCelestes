@@ -3,7 +3,18 @@
 import Image from "next/image";
 import { motion } from "framer-motion";
 
-export default function TeamSection({ team }: { team: any[] }) {
+interface TeamMember {
+  id: string;
+  name: string;
+  role: string;
+  is_leader: boolean;
+  photo_url: string | null;
+  display_order: number;
+  is_active: boolean;
+  bio?: string | null;
+}
+
+export default function TeamSection({ team }: { team: TeamMember[] }) {
   // Filtrar activos y ordenar
   const activeTeam = team.filter(m => m.is_active).sort((a, b) => a.display_order - b.display_order);
   
@@ -64,7 +75,7 @@ export default function TeamSection({ team }: { team: any[] }) {
           {/* Image side */}
           <div className="relative w-full md:w-[42%] min-h-[300px] md:min-h-[380px] flex-shrink-0">
             <Image
-              src={leader.photo_url}
+              src={leader.photo_url || '/mock/about.jpeg'}
               alt={`${leader.name} — ${leader.role}`}
               fill
               className="object-cover"
@@ -99,7 +110,7 @@ export default function TeamSection({ team }: { team: any[] }) {
               style={{ aspectRatio: "3/4" }}
             >
               <Image
-                src={m.photo_url}
+                src={m.photo_url || '/mock/activity-1.jpg'}
                 alt={m.name}
                 fill
                 className="object-cover transition-transform duration-500 group-hover:scale-105"

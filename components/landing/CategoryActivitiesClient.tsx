@@ -25,10 +25,9 @@ type Activity = {
 
 interface Props {
   initialActivities: Activity[]
-  categoryName: string
 }
 
-export default function CategoryActivitiesClient({ initialActivities, categoryName }: Props) {
+export default function CategoryActivitiesClient({ initialActivities }: Props) {
   const [selectedYear, setSelectedYear] = useState<number | 'all'>('all')
 
   // Obtener lista única de años de todas las actividades

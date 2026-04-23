@@ -25,7 +25,14 @@ function AnimatedCounter({ value }: { value: number }) {
   return <motion.span>{rounded}</motion.span>;
 }
 
-export default function ImpactSection({ stats }: { stats: any[] }) {
+interface Stat {
+  id: string;
+  label: string;
+  value: number;
+  is_active: boolean;
+}
+
+export default function ImpactSection({ stats }: { stats: Stat[] }) {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   // Filtrar solo las activas y formatear asegurando que el conteo sea un número

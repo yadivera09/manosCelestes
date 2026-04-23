@@ -20,7 +20,7 @@ export function ActivityYearsClient({
   activityId: string, 
   initialYears: ActivityYear[] 
 }) {
-  const [years, setYears] = useState<ActivityYear[]>(initialYears)
+  const [years] = useState<ActivityYear[]>(initialYears)
   const [isLoading, setIsLoading] = useState(false)
   const [formData, setFormData] = useState({ year: new Date().getFullYear(), description: '' })
 

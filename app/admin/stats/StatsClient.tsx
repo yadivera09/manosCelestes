@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { createStat, updateStat, toggleStatActive } from '@/app/actions/stats'
-import { Loader2, Plus, Edit2, Trash2, CheckCircle2, XCircle } from 'lucide-react'
+import { Loader2, Plus, Edit2, Trash2, CheckCircle2 } from 'lucide-react'
 
 type Stat = {
   id: string
@@ -14,7 +14,7 @@ type Stat = {
 }
 
 export function StatsClient({ initialStats }: { initialStats: Stat[] }) {
-  const [stats, setStats] = useState<Stat[]>(initialStats)
+  const [stats] = useState<Stat[]>(initialStats)
   const [isEditing, setIsEditing] = useState<string | null>(null)
   const [isLoading, setIsLoading] = useState(false)
 
